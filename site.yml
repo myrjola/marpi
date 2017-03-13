@@ -1,0 +1,11 @@
+---
+- hosts: raspbians
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - name: "Set correct Raspbian repos for HanXHX.debian_bootstrap"
+      set_fact:
+        dbs_repo_new:
+          - "http://{{ dbs_apt_default_host }}/raspbian {{ ansible_distribution_release }} {{ dbs_apt_components }}"
+  roles:
+    - HanXHX.debian_bootstrap

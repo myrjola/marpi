@@ -1,0 +1,22 @@
+---
+
+- name: Ensure Time Machine folder exists and set correct access rights
+  file:
+    path: "{{ marpi_timemachine_folder }}"
+    owner: "{{ marpi_timemachine_user }}"
+    mode: "u=rwx,g=r,o=r"
+    state: directory
+
+- name: Deploy Netatalk config
+  template:
+    src: afp.conf.j2
+    dest: /usr/local/etc/afp.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify:
+    - restart netatalk
+
+- name: Enable Netatalk service
+  service: name=netatalk state=started enabled=yes

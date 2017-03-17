@@ -2,3 +2,6 @@
 - name: Partition external hard disk and mount it to media directory
   include: prepare_volume.yml
   when: marpi_perform_repartitioning
+
+- name: Setup Netatalk to create an Time Machine compatible network disk
+  include: netatalk.yml

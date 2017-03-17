@@ -1,0 +1,14 @@
+[Global]
+ mimic model = TimeCapsule6,106
+ log level = default:warn
+ log file = /var/log/afpd.log
+ hosts allow = 192.168.0.0/24
+
+[TimeMachine]
+ path = {{ marpi_timemachine_folder }}
+ valid users = {{ marpi_timemachine_user }}
+ time machine = yes
+
+[Shared Media]
+ path = {{ marpi_mountpoint }}
+ valid users = pi {{ marpi_timemachine_user }}

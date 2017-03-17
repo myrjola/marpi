@@ -1,0 +1,4 @@
+---
+- name: Partition external hard disk and mount it to media directory
+  include: prepare_volume.yml
+  when: marpi_perform_repartitioning

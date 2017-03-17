@@ -9,3 +9,4 @@
           - "http://{{ dbs_apt_default_host }}/raspbian {{ ansible_distribution_release }} {{ dbs_apt_components }}"
   roles:
     - HanXHX.debian_bootstrap
+    - myrjola.marpi

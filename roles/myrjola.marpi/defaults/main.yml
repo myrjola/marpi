@@ -1,0 +1,7 @@
+---
+marpi_volume_device: /dev/sda
+marpi_volume_number: 1
+marpi_volume: "{{ marpi_volume_device }}{{ marpi_volume_number }}"
+marpi_fstype: ext4
+marpi_mountpoint: /mnt/media
+marpi_perform_repartitioning: false

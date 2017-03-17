@@ -1,0 +1,38 @@
+---
+
+- name: Read device information
+  parted:
+    device: "{{ marpi_volume_device }}"
+    unit: MiB
+  register: marpi_volume_info
+
+- name: Remove all partitions from disk
+  parted:
+    device: "{{ marpi_volume_device }}"
+    number: "{{ item.num }}"
+    state: absent
+  with_items:
+   - "{{ marpi_volume_info.partitions }}"
+
+- name: Create partition
+  parted:
+    device: "{{ marpi_volume_device }}"
+    number: "{{ marpi_volume_number }}"
+    state: present
+
+- name: Create filesystem
+  filesystem:
+    dev: "{{ marpi_volume }}"
+    fstype: "{{ marpi_fstype }}"
+
+- name: Ensure mountpoint exists
+  file:
+    path: "{{ marpi_mountpoint }}"
+    state: directory
+
+- name: Mount filesystem
+  mount:
+    src: "{{ marpi_volume }}"
+    fstype: "{{ marpi_fstype }}"
+    path: "{{ marpi_mountpoint }}"
+    state: mounted

@@ -22,7 +22,7 @@
 
 - name: Create filesystem
   filesystem:
-    dev: "{{ marpi_volume }}"
+    dev: "{{ marpi_volume_path }}"
     fstype: "{{ marpi_fstype }}"
 
 - name: Ensure mountpoint exists
@@ -32,7 +32,7 @@
 
 - name: Mount filesystem
   mount:
-    src: "{{ marpi_volume }}"
+    src: "{{ marpi_volume_path }}"
     fstype: "{{ marpi_fstype }}"
     path: "{{ marpi_mountpoint }}"
     state: mounted

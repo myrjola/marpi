@@ -1,4 +1,9 @@
 ---
+- name: Disable wlan0
+  cron:
+    special_time: reboot
+    job: "sudo ifdown wlan0"
+
 - name: Partition external hard disk and mount it to media directory
   include: prepare_volume.yml
   when: marpi_perform_repartitioning

@@ -1,0 +1,27 @@
+---
+# Based on https://raspberrypi.stackexchange.com/a/50073
+
+- name: Install dnsmasq
+  apt: name=dnsmasq state=present
+
+- name: Install dnsmasq config
+  template: src=dnsmasq_config.j2 dest=/etc/dnsmasq.conf
+  notify: Restart and enable dnsmasq
+
+- name: Enable packet forwarding
+  sysctl: name=net.ipv4.ip_forward value=1 state=present
+
+- name: Install network interfaces config
+  template: src=network_interfaces.j2 dest=/etc/network/interfaces
+  notify: Restart network
+
+- name: Install iptables config
+  template: src=iptables_config.j2 dest="{{ marpi_iptables_config_path }}"
+  notify: Restart network
+
+- name: Install iptables config restore script
+  template:
+    src: iptables_restore.j2
+    dest: /etc/network/if-pre-up.d/iptables
+    mode: "u=rwx,g=rx,o=x"
+  notify: Restart network

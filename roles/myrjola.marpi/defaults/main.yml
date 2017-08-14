@@ -7,3 +7,4 @@ marpi_fstype: ext4
 marpi_mountpoint: /mnt/media
 marpi_timemachine_folder: "{{ marpi_mountpoint }}/timemachine"
 marpi_perform_repartitioning: false
+marpi_iptables_config_path: /etc/iptables.conf

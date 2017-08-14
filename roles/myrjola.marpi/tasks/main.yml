@@ -1,12 +1,23 @@
 ---
-- name: Disable wlan0
-  cron:
-    special_time: reboot
-    job: "sudo ifdown wlan0"
-
 - name: Partition external hard disk and mount it to media directory
   include: prepare_volume.yml
   when: marpi_perform_repartitioning
 
+- name: Ensure mountpoint exists
+  file:
+    path: "{{ marpi_mountpoint }}"
+    state: directory
+
+- name: Mount filesystem
+  mount:
+    src: "{{ marpi_volume_path }}"
+    fstype: "{{ marpi_fstype }}"
+    path: "{{ marpi_mountpoint }}"
+    state: mounted
+
 - name: Setup Netatalk to create an Time Machine compatible network disk
   include: netatalk.yml
+
+- name: Share RasPi's wifi connection over ethernet
+  include: share_wifi_over_ethernet.yml
+  tags: share_wifi_over_ethernet

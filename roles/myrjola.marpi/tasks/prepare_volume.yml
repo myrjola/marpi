@@ -24,15 +24,3 @@
   filesystem:
     dev: "{{ marpi_volume_path }}"
     fstype: "{{ marpi_fstype }}"
-
-- name: Ensure mountpoint exists
-  file:
-    path: "{{ marpi_mountpoint }}"
-    state: directory
-
-- name: Mount filesystem
-  mount:
-    src: "{{ marpi_volume_path }}"
-    fstype: "{{ marpi_fstype }}"
-    path: "{{ marpi_mountpoint }}"
-    state: mounted

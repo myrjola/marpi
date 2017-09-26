@@ -8,5 +8,6 @@
         dbs_repo_new:
           - "http://{{ dbs_apt_default_host }}/raspbian {{ ansible_distribution_release }} {{ dbs_apt_components }}"
   roles:
-    - HanXHX.debian_bootstrap
-    - myrjola.marpi
+    - { role: HanXHX.debian_bootstrap, tags: timemachine }
+    - { role: myrjola.marpi, tags: timemachine }
+    - { role: Stouts.openvpn, tags: openvpn }
